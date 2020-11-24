@@ -34,8 +34,7 @@ class GameScene extends Scene {
     this.initWorldX = null;
     this.initWorldY = null;
     this.speedModifier = 15;
-    this.maxVelocityX = 150;
-    this.maxVelocityY = 200;
+    this.panVelocity = 100;
   }
 
   pointerDown(pointer) {
@@ -53,8 +52,15 @@ class GameScene extends Scene {
       const panX = (this.initWorldX - worldX);
       const panY = (this.initWorldY - worldY);
 
-      this.cat.x = (this.cat.x + panX);
-      this.cat.y = (this.cat.y + panY);
+      // this.cat.x = (this.cat.x + panX);
+      // this.cat.y = (this.cat.y + panY);
+
+      const nx = (this.cat.x + panX);
+      const ny = (this.cat.y + panY);
+
+      this.physics.moveTo(this.cat, this.cat.x + panX, this.cat.y + panY, this.panVelocity, 50);
+
+      this.cat.setAlpha(0.5);
     }
   }
 
@@ -80,6 +86,8 @@ class GameScene extends Scene {
 
     this.cat.body.setVelocity(xv, yv);
 
+    this.cat.setAlpha(1);
+
     this.pointerIsDown = false;
     this.initWorldX = null;
     this.initWorldY = null;
@@ -87,8 +95,6 @@ class GameScene extends Scene {
 
   update() {
     const grounded = this.cat.body.blocked.down;
-
-    console.log(grounded);
 
     if (this.cat.body.velocity.x > 0) {
       this.cat.setFlipX(false);
@@ -98,10 +104,10 @@ class GameScene extends Scene {
     }
 
     if (grounded && this.cat.body.velocity.x !== 0) {
-      this.cat.play({ key: 'hara-run', frameRate: 10, repeat: -1 });
+      this.cat.play({ key: 'hara-run', frameRate: 10, repeat: -1 }, true);
     }
     else if (grounded) {
-      this.cat.play({ key: 'hara-idle', frameRate: 6, repeat: -1 });
+      this.cat.play({ key: 'hara-idle', frameRate: 6, repeat: -1 }, true);
     }
     else if (this.cat.body.velocity.y < 0) {
       this.cat.play({ key: 'hara-jump', frameRate: 12, repeat: 0 });
