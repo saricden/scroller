@@ -18,10 +18,8 @@ class GameScene extends Scene {
     // Add, scale, and make up a speed for our creature
     this.cat = this.physics.add.sprite(50, 50, 'hara');
 
-    this.physics.add.collider(this.cat, layer);
+    // this.physics.add.collider(this.cat, layer);
     
-    console.log(this.rexGestures);
-
     this.cameras.main.startFollow(this.cat);
     this.cameras.main.setZoom(3);
 

@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "phaser": "^3.50.0-beta.10",
+    "phaser-matter-collision-plugin": "^0.10.2",
     "phaser3-rex-plugins": "^1.1.31"
   }
 }

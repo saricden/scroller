@@ -1,8 +1,9 @@
 import './main.css';
 import Phaser, {Game} from 'phaser';
-import GesturesPlugin from 'phaser3-rex-plugins/plugins/gestures-plugin.js';
+import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
 import BootScene from './scenes/BootScene';
 import GameScene from './scenes/GameScene';
+import MatterScene from './scenes/MatterScene';
 
 const canvas = document.getElementById('game-canvas');
 const config = {
@@ -11,25 +12,31 @@ const config = {
   height: window.innerHeight,
   canvas,
   pixelArt: true,
-  plugins: {
-    scene: [
-      {
-        key: 'rexGestures',
-        plugin: GesturesPlugin,
-        mapping: 'rexGestures'
-      },
-    ]
-  },
   physics: {
-    default: 'arcade',
-    arcade: {
-      gravity: { y: 400 },
+    // default: 'arcade',
+    // arcade: {
+    //   gravity: { y: 400 },
+    //   debug: false
+    // }
+    default: 'matter',
+    matter: {
+      gravity: { y: 1 },
       debug: false
     }
   },
+  plugins: {
+    scene: [
+      {
+        plugin: PhaserMatterCollisionPlugin,
+        key: "matterCollision",
+        mapping: "matterCollision"
+      }
+    ]
+  },
   scene: [
     BootScene,
-    GameScene
+    GameScene,
+    MatterScene
   ]
 };
 

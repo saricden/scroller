@@ -17,7 +17,7 @@ class BootScene extends Scene {
 
   create() {
     this.anims.createFromAseprite('hara');
-    this.scene.start('scene-game');
+    this.scene.start('scene-matter');
   }
 }
 
