@@ -52,9 +52,6 @@ class GameScene extends Scene {
       const panX = (this.initWorldX - worldX);
       const panY = (this.initWorldY - worldY);
 
-      // this.cat.x = (this.cat.x + panX);
-      // this.cat.y = (this.cat.y + panY);
-
       const nx = (this.cat.x + panX);
       const ny = (this.cat.y + panY);
 
@@ -70,20 +67,6 @@ class GameScene extends Scene {
     const xv = (((downX - upX) / (upTime - moveTime)) * this.speedModifier);
     const yv = (((downY - upY) / (upTime - moveTime)) * this.speedModifier);
 
-    // let xvel = 0;
-    // let yvel = 0;
-
-    // if (xv > 0) {
-    //   xvel = Math.min(xv, this.maxVelocityX);
-    // }
-    // else if (xv <= 0) {
-    //   xvel = Math.max(xv, -this.maxVelocityX);
-    // }
-
-    // this.cat.body.setVelocityX(xvel);
-
-    // this.cat.body.setVelocityY(yv);
-
     this.cat.body.setVelocity(xv, yv);
 
     this.cat.setAlpha(1);
@@ -95,6 +78,13 @@ class GameScene extends Scene {
 
   update() {
     const grounded = this.cat.body.blocked.down;
+
+    if (grounded && this.cat.body.velocity.x < 10 && this.cat.body.velocity.x > -10) {
+      this.cat.setVelocityX(0);
+    }
+    else if (grounded && this.cat.body.velocity.x !== 0) {
+      this.cat.setVelocityX(this.cat.body.velocity.x * 0.97);
+    }
 
     if (this.cat.body.velocity.x > 0) {
       this.cat.setFlipX(false);
